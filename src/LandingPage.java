@@ -1,29 +1,35 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class LandingPage extends JFrame {
     private JButton administratorButton;
     private JButton receptionistButton;
     private JButton doctorButton;
-    private JPanel LandingPanel;
+    public JPanel LandingPanel;
+    JFrame frame1 = new JFrame("MyForm");
+
+    LandingPage()
+    {
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            String SQL;
+            Connection connection;
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital?autoReconnect=true&useSSL=false",
+                    "root", "Momislove");
+        }catch(Exception e) {
+            System.out.println(e);
+        }
 
 
-
-    public static void main(String[] args) {
-        LandingPage lp = new LandingPage();
-
-        JFrame frame1 = new JFrame("MyForm");
-        frame1.setContentPane(lp.LandingPanel);
-        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame1.pack();
-        frame1.setVisible(true);
-
-        lp.doctorButton.addActionListener(new ActionListener() {
+        doctorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    lp.loadLogin();
+                    loadLogin("Doctor");
+                    frame1.dispose();
                 }
                 catch (Exception ex){
                     System.out.println(ex);
@@ -31,43 +37,48 @@ public class LandingPage extends JFrame {
             }
         });
 
-        lp.receptionistButton.addActionListener(new ActionListener() {
+        receptionistButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    lp.loadLogin();
+                    loadLogin("Reception");
+                    frame1.dispose();
                 }
                 catch (Exception ex){
                     System.out.println(ex);
                 }
             }
         });
-        lp.administratorButton.addActionListener(new ActionListener() {
+        administratorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    lp.loadLogin();
+                    loadLogin("Admin");
+                    frame1.dispose();
                 }
                 catch (Exception ex){
                     System.out.println(ex);
                 }
             }
         });
+
     }
 
-    void loadLogin(){
-
-       // LandingPage lp = new LandingPage();
-
-        Login log1 = new Login();
-        //log1.setVisible(true);
-
+    void loadLogin(String role){
+        Login log1 = new Login(role);
         log1.frame.setContentPane(log1.panel1);
         log1.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         log1.frame.pack();
         log1.frame.setVisible(true);
 
-//        lp.frame1.dispose();
+    }
+
+    public static void main(String[] args) {
+        LandingPage lp = new LandingPage();
+        lp.frame1.setContentPane(lp.LandingPanel);
+        lp.frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        lp.frame1.pack();
+        lp.frame1.setVisible(true);
     }
 
 }
