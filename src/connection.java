@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 
 public class connection {
 
-    public static void main(String args[]){
+    public connection(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
             String SQL;

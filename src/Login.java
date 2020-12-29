@@ -10,7 +10,7 @@ public class Login extends JFrame {
     private JPasswordField passwordField1;
     private JButton CANCELButton;
 
-    JFrame frame = new JFrame("MyForm");
+    JFrame frame = new JFrame("Login");
 
     public Login(String role) {
         LOGINButton.addActionListener(new ActionListener() {
@@ -31,12 +31,16 @@ public class Login extends JFrame {
 
                             try {
                                 Class.forName("com.mysql.jdbc.Driver");
-                                Connection cone = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital?autoReconnect=true&useSSL=false", "root", "Momislove");
+                                Connection cone = DriverManager.getConnection("jdbc:mysql://localhost:3306/Hospital?autoReconnect=true&useSSL=false", "root", "Momislove");
                                 PreparedStatement ps = cone.prepareStatement("select * from "+role);
                                 ResultSet rs = ps.executeQuery();
                                 while (rs.next()) {
-                                    if (rs.getString("ID").equals(DuserID) && rs.getString("pwd").equals(DPassword)) {
+                                    if (rs.getString("ID").equals(DuserID) && rs.getString("PWD").equals(DPassword)) {
                                        System.out.println("reception exists");
+                                       if(role == "Reception")
+                                           frame.dispose();
+                                       recepDashboard();
+
                                         break;
                                     }
                                 }
@@ -62,6 +66,17 @@ public class Login extends JFrame {
 
             }
         });
+    }
+
+
+
+    void recepDashboard(){
+        ReceptionDashboard rec = new ReceptionDashboard();
+        rec.frame.setContentPane(rec.recPanel);
+        rec.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        rec.frame.pack();
+        rec.frame.setVisible(true);
+
     }
 
 }

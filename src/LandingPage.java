@@ -17,8 +17,7 @@ public class LandingPage extends JFrame {
             Class.forName("com.mysql.jdbc.Driver");
             String SQL;
             Connection connection;
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital?autoReconnect=true&useSSL=false",
-                    "root", "Momislove");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Hospital?autoReconnect=true&useSSL=false", "root", "Momislove");
         }catch(Exception e) {
             System.out.println(e);
         }
@@ -58,6 +57,7 @@ public class LandingPage extends JFrame {
                 }
                 catch (Exception ex){
                     System.out.println(ex);
+
                 }
             }
         });
