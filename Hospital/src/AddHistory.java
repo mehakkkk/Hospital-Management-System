@@ -10,7 +10,7 @@ public class AddHistory extends JFrame {
     JButton Apply, clearButton, exitButton;
     Boolean[] theBox= {true,false};
     Connection connection;
-
+    Timestamp timestamp;
 
     public AddHistory()
     {
@@ -61,6 +61,7 @@ public class AddHistory extends JFrame {
         Details = new JTextField(20);
         Admit = new JComboBox(theBox);
         DoctorID= new JTextField(20);
+
 
 
         addItem(panel1, PatientID, 1, 0, 2, 1,
@@ -117,7 +118,7 @@ public class AddHistory extends JFrame {
 //                            PreparedStatement preparedStatement=(connection.prepareStatement(SQL));
 //                            preparedStatement.executeUpdate();
 
-                            CallableStatement stat=connection.prepareCall("{call InsertPatientHistory(?,?,?,?,?,?)}");
+                            CallableStatement stat=connection.prepareCall("{call InsertPatientHistory(?,?,?,?,?,?,?)}");
                             String temp = PatientID.getText();
                             stat.setString(1,temp);
                             System.out.println(temp);
@@ -144,6 +145,9 @@ public class AddHistory extends JFrame {
                             stat.setString(6, temp);
                             System.out.println(temp);
 
+                            timestamp = new Timestamp(System.currentTimeMillis());
+                            stat.setString(7, String.valueOf(timestamp));
+
                             stat.execute();
                             connection.close();
                             stat.close();
@@ -164,6 +168,7 @@ public class AddHistory extends JFrame {
                                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
                         JFrame frame= new JFrame();
+                        frame.setBackground(Color.pink);
 
                         if (e.getSource()==Apply){
                             String name= PatientID.getText();
@@ -183,6 +188,8 @@ public class AddHistory extends JFrame {
 
                             String phone=DoctorID.getText();
                             textarea.append("    DOCTOR ID: "+phone+"\n\n");
+
+                            textarea.append("    TIMESTAMP: "+timestamp+"\n\n");
 
 
                             textarea.append("\n\n\t\t\tThankyou wait for your turn your data has been registered");

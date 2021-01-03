@@ -52,6 +52,7 @@ public class ForDoctor {
         catch (SQLException | ClassNotFoundException sql) {
             System.out.println(sql);
         }
+        //search Patient
         searchPatientButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,6 +62,8 @@ public class ForDoctor {
 
             }
         });
+
+        //cancel
         canceldoc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,20 +78,21 @@ public class ForDoctor {
             }
         });
 
+        //Get Patient History in table by id
         getPatientHistoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Ptext.setVisible(true);
                 EnterLabel.setText("            Enter Patient ID :   ");
                 String Patientid = Ptext.getText();
-                String[] columnNames = {"PatientID","Details","Medicines","Admit","Disease","DoctorID"};
+                String[] columnNames = {"PatientID","Details","Medicines","Admit","Disease","DoctorID","Timestamp"};
                 DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
                 try {
                     statement = (Statement) cone.createStatement();
                     sql = "select * from PatientHistory where PatientID =\"" + Patientid +"\";";
                     rs = statement.executeQuery(sql);
-                    tableModel.addRow(new Object[] {"PatientID","Details","Medicines","Admit","Disease","DoctorID" });
+                    tableModel.addRow(new Object[] {"PatientID","Details","Medicines","Admit","Disease","DoctorID","Timestamp" });
                     System.out.println(rs);
 
                     if (rs.next() == false) {
@@ -103,9 +107,9 @@ public class ForDoctor {
                             Boolean admit = rs.getBoolean("Admit");
                             String disease = rs.getString("Disease");
                             String DocId = rs.getString("DoctorID");
-
+                            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                             // create a single array of one row's worth of data
-                            String[] data = { ID,details,medicines,String.valueOf(admit),disease,DocId} ;
+                            String[] data = { ID,details,medicines,String.valueOf(admit),disease,DocId,String.valueOf(timestamp)} ;
                             System.out.println(data);
                             tableModel.addRow(data);
                         } while (rs.next());
@@ -117,33 +121,32 @@ public class ForDoctor {
                 }
             }
         });
+
+
+        //Search Patient by ID
         ById.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EnterLabel.setText("            Enter Patient ID :   ");
                 String Patientid = Ptext.getText();
-                String[] columnNames = {"ID","Name","RegisterTime","Age","Sex","Address","PhoneNumber1","PhoneNumber2"};
+                String[] columnNames = {"ID","Name","Age","Sex"};
                 DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
                 try {
                     statement = (Statement) cone.createStatement();
-                    sql = "select * from Patient where ID =\"" + Patientid +"\";";
+                    sql = "select * from PatientforDoc where ID =\"" + Patientid +"\";";
                     rs = statement.executeQuery(sql);
-                    tableModel.addRow(new Object[] {"ID","Name","RegisterTime","Age","Sex","Address","PhoneNumber1","PhoneNumber2" });
+                    tableModel.addRow(new Object[] {"ID","Name","Age","Sex" });
                     while (rs.next()) {
                         String ID = rs.getString("ID");
                         String Fname = rs.getString("FirstName");
-                        String registerTime = rs.getString("RegisterTime");
                         String Lname = rs.getString("LastName");
                         String name = Lname+" "+Fname;
                         Integer age = rs.getInt("Age");
                         String sex = rs.getString("Sex");
-                        String address = rs.getString("Address");
-                        Long Ph1 = rs.getLong("PhoneNumber1");
-                        Long Ph2 = rs.getLong("PhoneNumber2");
 
                         // create a single array of one row's worth of data
-                        String[] data = { ID,name,registerTime,String.valueOf(age),sex,address,String.valueOf(Ph1),String.valueOf(Ph2)} ;
+                        String[] data = { ID,name,String.valueOf(age),sex} ;
                         System.out.println(data);
                         tableModel.addRow(data);
                     }
@@ -153,33 +156,31 @@ public class ForDoctor {
                 }
             }
         });
+
+        //Search Patient by Name
         ByName.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 EnterLabel.setText("            Enter Patient Name :   ");
                 String Patientname = Ptext.getText();
-                String[] columnNames = {"ID","Name","RegisterTime","Age","Sex","Address","PhoneNumber1","PhoneNumber2"};
+                String[] columnNames = {"ID","Name","Age","Sex"};
                 DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
                 try {
                     statement = (Statement) cone.createStatement();
-                    sql = "select * from Patient where FirstName =\"" + Patientname +"\";";
+                    sql = "select * from PatientforDoc where FirstName =\"" + Patientname +"\";";
                     rs = statement.executeQuery(sql);
-                    tableModel.addRow(new Object[] {"ID","Name","RegisterTime","Age","Sex","Address","PhoneNumber1","PhoneNumber2" });
+                    tableModel.addRow(new Object[] {"ID","Name","Age","Sex" });
                     while (rs.next()) {
                         String ID = rs.getString("ID");
                         String Fname = rs.getString("FirstName");
-                        String registerTime = rs.getString("RegisterTime");
                         String Lname = rs.getString("LastName");
                         String name = Lname+" "+Fname;
                         Integer age = rs.getInt("Age");
                         String sex = rs.getString("Sex");
-                        String address = rs.getString("Address");
-                        Long Ph1 = rs.getLong("PhoneNumber1");
-                        Long Ph2 = rs.getLong("PhoneNumber2");
 
                         // create a single array of one row's worth of data
-                        String[] data = { ID,name,registerTime,String.valueOf(age),sex,address,String.valueOf(Ph1),String.valueOf(Ph2)} ;
+                        String[] data = { ID,name,String.valueOf(age),sex} ;
                         System.out.println(data);
                         tableModel.addRow(data);
                     }
