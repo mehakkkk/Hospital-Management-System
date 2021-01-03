@@ -98,7 +98,7 @@ public class AddHistory extends JFrame {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              cancel1();
+                cancel1();
             }
         });
         addItem(panel1, buttonBox, 0, 7, 3, 1, GridBagConstraints.CENTER);

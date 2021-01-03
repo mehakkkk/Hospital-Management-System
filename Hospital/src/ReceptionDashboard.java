@@ -50,7 +50,7 @@ class ReceptionDashboard extends javax.swing.JFrame {
         try{
 
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Hospital?autoReconnect=true&useSSL=false", "demo", "Demo#123");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Hospital?autoReconnect=true&useSSL=false", "root", "Momislove");
             EmployeeCount();
             PatientCount();
         }catch(Exception e) {
