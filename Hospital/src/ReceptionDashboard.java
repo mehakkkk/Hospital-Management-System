@@ -48,8 +48,9 @@ class ReceptionDashboard extends javax.swing.JFrame {
         PatientInfo.setVisible(false);
 
         try{
+
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Hospital?autoReconnect=true&useSSL=false", "demo", "Demo#123");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Hospital?autoReconnect=true&useSSL=false", "root", "Momislove");
             EmployeeCount();
             PatientCount();
         }catch(Exception e) {
@@ -103,16 +104,6 @@ class ReceptionDashboard extends javax.swing.JFrame {
                     throwables.printStackTrace();
                 }
 
-//                display display = new display();
-//                display.frame.setContentPane(display.displaypanel);
-//                display.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//                display.frame.pack();
-//                display.frame.setVisible(true);
-//                display.EmployeeDisplay();
-
-
-                //display all employee in a table
-
 
 
             }
@@ -164,7 +155,10 @@ class ReceptionDashboard extends javax.swing.JFrame {
                 EmployeeInfo.setVisible(false);
                 PatientInfo.setVisible(false);
                 search.setVisible(true);
-                searchLabel.setText("Enter Employee Name");
+                if(searchFlag =="Employee")
+                    searchLabel.setText("Enter Employee Name");
+                else
+                    searchLabel.setText("Enter Patient Name");
                 flag =1;
             }
         });
@@ -181,7 +175,10 @@ class ReceptionDashboard extends javax.swing.JFrame {
                 searchByNameButton.setVisible(false);
                 searchByIDButton.setVisible(false);
                 search.setVisible(true);
-                searchLabel.setText("Enter Employee ID");
+                if(searchFlag =="Employee")
+                    searchLabel.setText("Enter Employee ID");
+                else
+                    searchLabel.setText("Enter Patient ID");
                 flag =2;
             }
         });
@@ -201,7 +198,7 @@ class ReceptionDashboard extends javax.swing.JFrame {
 
                     try {
                         statement = (Statement) connection.createStatement();
-                        sql = "select * from Employee where FName =\"" + sname + "\";";
+                        sql ="SELECT * from EmployeeSearch where FName =\"" + sname + "\";";
                         ResultSet rs = null;
                         rs = statement.executeQuery(sql);
 
@@ -235,7 +232,7 @@ class ReceptionDashboard extends javax.swing.JFrame {
 
                     try {
                         statement = (Statement) connection.createStatement();
-                        sql = "select * from Employee where ID =\"" + sid + "\";";
+                        sql ="SELECT * from EmployeeSearch where ID =\"" + sid + "\";";
                         ResultSet rs = null;
                         rs = statement.executeQuery(sql);
 
@@ -268,7 +265,7 @@ class ReceptionDashboard extends javax.swing.JFrame {
 
                     try {
                         statement = (Statement) connection.createStatement();
-                        sql = "select * from Patient where FirstName =\"" + sname + "\";" ;
+                        sql ="SELECT * from PatientSearch where FirstName =\"" + sname + "\";";
                         ResultSet rs = null;
                         rs = statement.executeQuery(sql);
 
@@ -307,7 +304,7 @@ class ReceptionDashboard extends javax.swing.JFrame {
 
                     try {
                         statement = (Statement) connection.createStatement();
-                        sql = "select * from Patient where ID =\"" + sid + "\";" ;
+                        sql ="SELECT * from PatientSearch where ID =\"" + sid + "\";";
                         ResultSet rs = null;
                         rs = statement.executeQuery(sql);
 
