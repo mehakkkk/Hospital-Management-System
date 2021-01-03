@@ -24,14 +24,11 @@ public class RegisterPatient extends JFrame {
         StringBuilder res=new StringBuilder();
         //create unique id of length 6
         for (int i = 0; i < 6; i++) {
-            int randIndex=rand.nextInt(createString.length());
+            int randIndex = rand.nextInt(createString.length());
             res.append(createString.charAt(randIndex));
         }
-
         return res.toString();
     }
-
-
     public static void main(String args[])
     {
 
@@ -41,7 +38,7 @@ public class RegisterPatient extends JFrame {
     {
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Hospital?autoReconnect=true&useSSL=false", "root", "Momislove");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital?autoReconnect=true&useSSL=false", "root", "");
 
         }catch(Exception e) {
             System.out.println(e);

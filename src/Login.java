@@ -31,15 +31,24 @@ public class Login extends JFrame {
 
                             try {
                                 Class.forName("com.mysql.jdbc.Driver");
-                                Connection cone = DriverManager.getConnection("jdbc:mysql://localhost:3306/Hospital?autoReconnect=true&useSSL=false", "root", "Momislove");
+                                Connection cone = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital?autoReconnect=true&useSSL=false", "root", "");
                                 PreparedStatement ps = cone.prepareStatement("select * from "+role);
                                 ResultSet rs = ps.executeQuery();
                                 while (rs.next()) {
                                     if (rs.getString("ID").equals(DuserID) && rs.getString("PWD").equals(DPassword)) {
-                                       System.out.println("reception exists");
+
                                        if(role == "Reception")
+                                       {System.out.println("reception exists");
                                            frame.dispose();
-                                       recepDashboard();
+                                           recepDashboard();
+                                       }
+                                       if (role == "Admin")
+                                       {
+                                           System.out.println("Admin exists");
+                                           frame.dispose();
+                                           adminDashboard();
+                                       }
+
 
                                         break;
                                     }
@@ -76,6 +85,14 @@ public class Login extends JFrame {
         rec.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         rec.frame.pack();
         rec.frame.setVisible(true);
+
+    }
+    void adminDashboard(){
+        AdminPage adminPage = new AdminPage();
+        adminPage.frame5.setContentPane(adminPage.AdminPanel);
+        adminPage.frame5.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        adminPage.frame5.pack();
+        adminPage.frame5.setVisible(true);
 
     }
 

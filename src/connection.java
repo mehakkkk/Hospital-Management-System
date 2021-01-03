@@ -9,7 +9,7 @@ public class connection {
             String SQL;
             Connection connection;
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital?autoReconnect=true&useSSL=false",
-                    "root", "Momislove");
+                    "root", "");
         }catch(Exception e)
         {
             System.out.println(e);
